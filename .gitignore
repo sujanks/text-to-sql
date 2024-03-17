@@ -1,3 +1,2 @@
-local.env
-local.py
 Pipfile
+local*
