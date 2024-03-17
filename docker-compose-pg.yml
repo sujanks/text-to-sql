@@ -1,0 +1,34 @@
+version: "3.9"
+services:
+  postgresql:
+    container_name: postgresql
+    image: postgres:14
+    restart: always
+    command: "--work_mem=10MB"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    volumes:
+     - ./docker-volume/db-data-postgres:/var/lib/postgresql/data
+    
+    networks:
+      - app_net
+
+  pgadmin:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@domain.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    networks:
+      - app_net
+  
+networks:
+  app_net:
